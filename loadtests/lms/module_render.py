@@ -247,7 +247,7 @@ class ModuleRenderTasks(LmsTasks):
                 return matched
 
         usage_key = self.course_key.make_usage_key(category, block_id)
-        escaped = re.sub(ur'[;/]', escape, unicode(usage_key))
+        escaped = re.sub(r'[;/]', escape, str(usage_key))
         return "xblock/{}/handler/{}".format(escaped, handler)
 
     def _post_capa_handler(self, handler):
@@ -279,7 +279,7 @@ class ModuleRenderTasks(LmsTasks):
         """
         self.post(
             self._handler_path('sequential', self.course_data.sequential_id, 'xmodule_handler/goto_position'),
-            data={'position': unicode(random.randint(0, 10))},
+            data={'position': str(random.randint(0, 10))},
             name='handler:goto_position',
         )
 

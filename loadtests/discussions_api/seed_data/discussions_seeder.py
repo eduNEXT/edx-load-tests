@@ -54,7 +54,7 @@ class DiscussionsSeeder(Seeder):
                 for j in range(0, child_comments):
                     self.create_comment(thread_id, comment_is_child=comment_id)
 
-            print "Created thread {} of {} with {} responses and {} comments".format(str(p + 1), posts, responses, child_comments)
+            print "Created thread {} of {} with {} responses and {} comments".format(bytes(p + 1), posts, responses, child_comments)
 
         return thread_list
 

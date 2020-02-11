@@ -24,7 +24,7 @@ class TrackingTasks(LmsTasks):
         # for simplicity, chars in this pool should be only 1 byte long in
         # utf-8, and also won't expand into escapes when converting to json.
         char_pool = ascii_letters + digits
-        random_chars = (choice(char_pool) for _ in xrange(length))
+        random_chars = (choice(char_pool) for _ in range(length))
         return ''.join(random_chars)
 
     @task(9)

@@ -57,7 +57,7 @@ class AuthenticationMixin(TaskSet):
             'honor_code': 'true'
         }, headers=headers).json()
         if not response['success']:
-            raise Exception(str(response))
+            raise Exception(bytes(response))
         print('Login successful {}'.format(email))
 
     def _get_csrf(self, url):

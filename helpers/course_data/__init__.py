@@ -16,7 +16,7 @@ class CourseData(dict):
     """
     @staticmethod
     def _random_item(d):
-        key = random.choice(d.keys())
+        key = random.choice(list(d.keys()))
         return (key, d[key])
 
     @property

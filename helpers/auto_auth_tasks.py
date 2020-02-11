@@ -52,7 +52,7 @@ class AutoAuthTasks(TaskSet):
                 self._user_id = json_response['user_id']
                 self._anonymous_user_id = json_response['anonymous_id']
                 return True
-            except ValueError, KeyError:
+            except Exception as e:
                 pass
 
         return False

@@ -25,7 +25,7 @@ class EdxAppTasks(HeadersTaskSetMixin, AutoAuthTasks):
         """
         courses = settings.data['courses']
         course_ratio_pairs = \
-            [(cid, cdata['ratio']) for cid, cdata in courses.iteritems()]
+            [(cid, cdata['ratio']) for cid, cdata in courses.items()]
         return util.choice_with_distribution(course_ratio_pairs)
 
     @lazy

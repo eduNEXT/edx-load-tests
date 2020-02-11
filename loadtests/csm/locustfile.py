@@ -171,7 +171,7 @@ class CSMLoadModel(TaskSet):
             # and the rest goes to the value.
             data_per_field = max(target_serialized_size // num_fields - 6, 0)
             return {
-                str(field): (RANDOM_CHARACTERS * (data_per_field // 1000 + 1))[:data_per_field]
+                bytes(field): (RANDOM_CHARACTERS * (data_per_field // 1000 + 1))[:data_per_field]
                 for field in range(num_fields)
             }
 
@@ -185,7 +185,7 @@ class CSMLoadModel(TaskSet):
             self._gen_block_type(),
             # We've seen at most 1000 blocks requested in a course, so we'll
             # generate at most that many different indexes.
-            str(numpy.random.randint(0, 1000)),
+            bytes(numpy.random.randint(0, 1000)),
         )
 
     @task(1)

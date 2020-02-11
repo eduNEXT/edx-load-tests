@@ -115,7 +115,7 @@ def create_threads(args, course_id=None, seeder=None, save_threads=True):
     seeder = seeder if seeder else setup_discussion_seeder(args)
     posts = int(args.batches or raw_input("How many threads in multiples of 10?"))
     seeder.seed_threads(course_id=course_id, posts=posts)
-    file_name = args.action + str(posts * 10)
+    file_name = args.action + bytes(posts * 10)
     if save_threads:
         save_threads_to_file(seeder, file_name, course_id)
 
@@ -138,7 +138,7 @@ def create_comments(args, course_id=None, seeder=None, save_threads=True):
     responses = int(args.responses or raw_input("How many responses for thread "))
     child_comments = int(args.comments or raw_input("How many comments for each response "))
     thread_list = seeder.seed_comments(course_id=course_id, posts=posts, responses=responses, child_comments=child_comments)
-    file_name = args.action + str(responses * child_comments)
+    file_name = args.action + bytes(responses * child_comments)
     if save_threads:
         save_threads_to_file(seeder, file_name, course_id, thread_id_list=thread_list)
 

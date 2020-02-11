@@ -2,7 +2,7 @@
 # should import this file.
 
 # load testing software
-locustio==0.7.5
+-e git://github.com/locustio/locust.git@v0.8#egg=locustio
 pyzmq==15.2.0  # needed for distributed mode. remove after we start using locustio>=8.0
 
 # common loadtest requirements

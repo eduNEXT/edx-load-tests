@@ -19,7 +19,7 @@ from wiki_views import WikiViewTask
 from tracking import TrackingTasks
 from helpers import settings, markers
 
-settings.init(__name__, required_data=[
+settings.init("lms.py", required_data=[
     'courses',
     'LOCUST_TASK_SET',
     'LOCUST_MIN_WAIT',
