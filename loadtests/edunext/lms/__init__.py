@@ -1,1 +1,1 @@
-from locustfile import LmsLocust
+from .locustfile import LmsLocust
