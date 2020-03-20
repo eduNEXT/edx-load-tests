@@ -21,3 +21,7 @@ settings_files/*.yml
 
 # ecommerce_deadlock
 *ecommerce_deadlock_constants.py
+
+#locust output files
+*.csv
+*.csv#
