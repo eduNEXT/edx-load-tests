@@ -2,6 +2,7 @@
 """
 
 import logging
+import random
 
 from locust import TaskSet
 
@@ -10,11 +11,10 @@ from helpers.mixins import EnrollmentTaskSetMixin
 from helpers import settings
 
 
-class LmsTasks(EnrollmentTaskSetMixin, EdxAppTasks):
+class EdunextLmsTasks(EnrollmentTaskSetMixin, EdxAppTasks):
     """
     Base class for course-specific LMS TaskSets.
     """
-
     @property
     def _is_child(self):
         """
@@ -53,17 +53,12 @@ class LmsTasks(EnrollmentTaskSetMixin, EdxAppTasks):
         kwargs['headers'] = headers
         return self._request('post', *args, **kwargs)
 
-    def auto_auth(self, *args, **kwargs):
-        success = super(LmsTasks, self).auto_auth(*args, **kwargs)
-        if success and self._user_id and self._email and self._password:
-            self.locust._user_id = self._user_id
-            self.locust._email = self._email
-            self.locust._password = self._password
-        return success
-
     def login(self):
         success = False
         if self.locust._email and self.locust._password:
+            response = self.client.get(
+                settings.data['LOGIN_PATH'])
+            self.client.cookies = response.cookies
             response = self.client.post(
                 settings.data['LOGIN_PATH'],
                 data={'email': self.locust._email, 'password': self.locust._password},
@@ -85,38 +80,33 @@ class LmsTasks(EnrollmentTaskSetMixin, EdxAppTasks):
         return success
 
     def enroll(self, *args, **kwargs):
-        success = super(LmsTasks, self).enroll(*args, **kwargs)
+        success = super(EdunextLmsTasks, self).enroll(*args, **kwargs)
         if success:
             self.locust._is_enrolled = True
         return success
 
     def on_start(self):
-        if not self.locust._is_registered:
-            self.auto_auth(params={'no_login': True})
+        if len(settings.secrets['USERS_CREDENTIALS']) > 0:
 
-            # If we failed to register the user, and this TaskSet is a child of the main LmsTest TaskSet, interrupt so
-            # that we can select another TaskSet and try to register again.
-            #
-            # NOTE: this is basically a retry mechanism without backoff, so it may behoove us to add delays to this
-            if self._is_child and not self.locust._is_registered:
-                self.interrupt()
+            self.locust._email = random.choice(list(settings.secrets['USERS_CREDENTIALS'].keys()))
+            self.locust._password = settings.secrets['USERS_CREDENTIALS'].pop(self.locust._email)
 
-        if self.locust._is_registered and not self.locust._is_logged_in:
-            self.login()
+            if not self.locust._is_logged_in:
+                self.login()
 
-            # If we failed to log in, and this TaskSet is a child of the main LmsTest TaskSet, interrupt so
-            # that we can select another TaskSet and try to log in again.
-            #
-            # NOTE: this is basically a retry mechanism without backoff, so it may behoove us to add delays to this
-            if self._is_child and not self.locust._is_logged_in:
-                self.interrupt()
+                # If we failed to log in, and this TaskSet is a child of the main LmsTest TaskSet, interrupt so
+                # that we can select another TaskSet and try to log in again.
+                #
+                # NOTE: this is basically a retry mechanism without backoff, so it may behoove us to add delays to this
+                if self._is_child and not self.locust._is_logged_in:
+                    self.interrupt()
 
-        if self.locust._is_logged_in and not self.locust._is_enrolled:
-            self.enroll(self.course_id)
+            if self.locust._is_logged_in and not self.locust._is_enrolled:
+                self.enroll(self.course_id)
 
-            # If we failed to enroll, and this TaskSet is a child of the main LmsTest TaskSet, interrupt so
-            # that we can select another TaskSet and try to enroll again.
-            #
-            # NOTE: this is basically a retry mechanism without backoff, so it may behoove us to add delays to this
-            if self._is_child and not self.locust._is_enrolled:
-                self.interrupt()
+                # If we failed to enroll, and this TaskSet is a child of the main LmsTest TaskSet, interrupt so
+                # that we can select another TaskSet and try to enroll again.
+                #
+                # NOTE: this is basically a retry mechanism without backoff, so it may behoove us to add delays to this
+                # if self._is_child and not self.locust._is_enrolled:
+                #     self.interrupt()
