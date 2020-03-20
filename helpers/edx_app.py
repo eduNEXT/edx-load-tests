@@ -5,7 +5,7 @@ from opaque_keys.edx.keys import CourseKey
 from helpers import settings, util, course_data
 from helpers.auto_auth_tasks import AutoAuthTasks
 from helpers.mixins import HeadersTaskSetMixin
-
+from helpers.course_data import CourseData
 
 class EdxAppTasks(HeadersTaskSetMixin, AutoAuthTasks):
     """
@@ -61,8 +61,7 @@ class EdxAppTasks(HeadersTaskSetMixin, AutoAuthTasks):
         """
         Accessor for the CourseData instance we're configured to test with.
         """
-        course_data_name = self._get_course_setting('course_data')
-        return getattr(course_data, course_data_name)
+        return CourseData(self._get_course_setting('course_data'))
 
     def _get_course_setting(self, setting):
         """
