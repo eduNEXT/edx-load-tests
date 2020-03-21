@@ -1,0 +1,64 @@
+---
+# The courses defines all the courses which will have load driven
+# against.  The keys at the top level are course IDs, and each value contains
+# some loadtesting-related metadata about the course.
+# courses:
+#     # This course was created on courses-loadtest.edx.org to re-run the demo
+#     # course to use split mongo.
+#     course-v1:edx+CS101+2020_T1:
+#         # The name of the python object (must be defined in
+#         # loadtests.lms.course_data) which contains course data specific to
+#         # this course.
+#         course_data: demo_course
+
+#         # This ratio describes the relative amount of hatched locust clients to enroll
+#         # and participate in this course.
+#         ratio: 1
+
+#         # Optionally provide a pointer to a large thread which you seeded using the
+#         # SeedForumsTasks task set.  This thread will be used in addition to a
+#         # small thread which will be automatically created.
+#         #large_topic_id:
+#         #large_thread_id:
+courses:
+    course-v1:e4tw-internal-performance-testing+CS101+2020_T1:
+        # The name of the python object (must be defined in
+        # loadtests.lms.course_data) which contains course data specific to
+        # this course.
+        course_data:
+            courseware_paths:
+              - ''
+
+        # This ratio describes the relative amount of hatched locust clients to enroll
+        # and participate in this course.
+        ratio: 1
+
+# Path to the primary login endpoint
+LOGIN_PATH: '/login_ajax'
+
+# Run the specified TaskSet (must be imported into the lms/locustfile.py
+# file):
+LOCUST_TASK_SET: LmsTest
+
+# Used to determine how 'active' users are in timed and proctored exams.
+# This is the multiplying factor for how often proctoring-specific tasks happen (default is 1):
+PROCTORED_EXAM_MODIFIER: 1
+
+# Used to determine how 'active' users are in timed and proctored exams.
+# This is the multiplying factor for how often CAPA-interactions happen (default is 1):
+MODULE_RENDER_MODIFIER: 1
+
+# Minimum/Maximum waiting time between the execution of locust tasks:
+LOCUST_MIN_WAIT: 7500
+LOCUST_MAX_WAIT: 15000
+
+---
+# secrets below
+
+# Use the following key to add user credentials that are going to be used during the test.
+USERS_CREDENTIALS:
+  performance__user_1@test.com:   "PASSWORD_FOR_PERFORMANCE_USER_1"
+  ...
+  performance__user_100@test.com: "PASSWORD_FOR_PERFORMANCE_USER_100"
+
+
