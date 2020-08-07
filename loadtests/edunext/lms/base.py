@@ -87,9 +87,10 @@ class EdunextLmsTasks(EnrollmentTaskSetMixin, EdxAppTasks):
 
     def on_start(self):
         if len(settings.secrets['USERS_CREDENTIALS']) > 0:
-
             self.locust._email = random.choice(list(settings.secrets['USERS_CREDENTIALS'].keys()))
-            self.locust._password = settings.secrets['USERS_CREDENTIALS'].pop(self.locust._email)
+            # self.locust._password = settings.secrets['USERS_CREDENTIALS'].pop(self.locust._email)
+            self.locust._password = settings.secrets['USERS_CREDENTIALS'][self.locust._email]
+
 
             if not self.locust._is_logged_in:
                 self.login()
@@ -110,3 +111,4 @@ class EdunextLmsTasks(EnrollmentTaskSetMixin, EdxAppTasks):
                 # NOTE: this is basically a retry mechanism without backoff, so it may behoove us to add delays to this
                 # if self._is_child and not self.locust._is_enrolled:
                 #     self.interrupt()
+
