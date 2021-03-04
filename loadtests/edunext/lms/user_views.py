@@ -1,7 +1,7 @@
 import logging
 
 from locust import task
-from .base import EdunextLmsTasks
+from base import EdunextLmsTasks
 
 
 class StudentViewsTasks(EdunextLmsTasks):
@@ -20,5 +20,5 @@ class StudentViewsTasks(EdunextLmsTasks):
         """
         Request the dashboard.
         """
-        path = 'dashboard'
+        path = '/dashboard'
         self.get(path, name='dashboard')

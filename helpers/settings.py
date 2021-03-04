@@ -224,6 +224,7 @@ def init(test_module_full_name, required_data=(), required_secrets=()):
     # name of the directory containing the locustfile. E.g.
     # "loadtests/lms/locustfile.py" reads settings data from
     # "settings_files/lms.yml".
+    # import ipdb; ipdb.set_trace()
     test_module_name = test_module_full_name.split('.')[-2]
     settings_filename = \
         resource_filename('settings_files', '{}.yml'.format(test_module_name))

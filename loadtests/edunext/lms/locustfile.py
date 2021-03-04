@@ -9,13 +9,13 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(
 
 from locust import HttpLocust
 
-from .base import EdunextLmsTasks
-from .courseware_views import CoursewareViewsTasks
-from .user_views import StudentViewsTasks
+from base import EdunextLmsTasks
+from courseware_views import CoursewareViewsTasks
+from user_views import StudentViewsTasks
 from helpers import settings, markers
 
 
-settings.init(f'edunext_{__name__}', required_data=[
+settings.init(f'edunext_lms.locustfile', required_data=[
     'courses',
     'LOCUST_TASK_SET',
     'LOCUST_MIN_WAIT',
@@ -33,7 +33,8 @@ class LmsTest(EdunextLmsTasks):
     """
 
     tasks = {
-        CoursewareViewsTasks: 1,
+        CoursewareViewsTasks: 2,
+        StudentViewsTasks: 1,
     }
 
 
