@@ -93,6 +93,7 @@ class LmsTasks(EnrollmentTaskSetMixin, EdxAppTasks):
     def on_start(self):
         if not self.locust._is_registered:
             self.auto_auth(params={'no_login': True})
+            import ipdb, ipdb.set_trace()
 
             # If we failed to register the user, and this TaskSet is a child of the main LmsTest TaskSet, interrupt so
             # that we can select another TaskSet and try to register again.

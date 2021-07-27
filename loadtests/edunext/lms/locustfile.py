@@ -33,8 +33,7 @@ class LmsTest(EdunextLmsTasks):
     """
 
     tasks = {
-        CoursewareViewsTasks: 2,
-        StudentViewsTasks: 1,
+        CoursewareViewsTasks: 1,
     }
 
 

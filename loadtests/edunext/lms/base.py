@@ -102,13 +102,13 @@ class EdunextLmsTasks(EnrollmentTaskSetMixin, EdxAppTasks):
                 if self._is_child and not self.locust._is_logged_in:
                     self.interrupt()
 
-            if self.locust._is_logged_in and not self.locust._is_enrolled:
-                self.enroll(self.course_id)
+            # if self.locust._is_logged_in and not self.locust._is_enrolled:
+            #     self.enroll(self.course_id)
 
-                # If we failed to enroll, and this TaskSet is a child of the main LmsTest TaskSet, interrupt so
-                # that we can select another TaskSet and try to enroll again.
-                #
-                # NOTE: this is basically a retry mechanism without backoff, so it may behoove us to add delays to this
-                # if self._is_child and not self.locust._is_enrolled:
-                #     self.interrupt()
+            #     # If we failed to enroll, and this TaskSet is a child of the main LmsTest TaskSet, interrupt so
+            #     # that we can select another TaskSet and try to enroll again.
+            #     #
+            #     # NOTE: this is basically a retry mechanism without backoff, so it may behoove us to add delays to this
+            #     if self._is_child and not self.locust._is_enrolled:
+            #         self.interrupt()
 
