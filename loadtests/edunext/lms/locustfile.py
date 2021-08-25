@@ -15,7 +15,7 @@ from user_views import StudentViewsTasks
 from helpers import settings, markers
 
 
-settings.init(f'edunext_lms.locustfile', required_data=[
+settings.init('edunext_lms.locustfile', required_data=[
     'courses',
     'LOCUST_TASK_SET',
     'LOCUST_MIN_WAIT',

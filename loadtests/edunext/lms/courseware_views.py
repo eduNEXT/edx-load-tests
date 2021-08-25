@@ -10,12 +10,12 @@ class CoursewareViewsTasks(EdunextLmsTasks):
     Models traffic for endpoints in lms.djangoapps.courseware.views
     """
 
-    @task(1)
+    @task(10)
     def index(self):
         """
         Request a randomly-chosen top-level page in the course.
         """
-        logger.info(f'Current user email: { self.locust._email }')
+        logger.info('Current user email: %s', self.locust._email)
         path = 'courseware' + self.course_data.courseware_path
         self.get(path, name='courseware:index')
 
@@ -28,13 +28,13 @@ class CoursewareViewsTasks(EdunextLmsTasks):
     #     path = 'courseware' + self.course_data.courseware_path
     #     self.get(path, name='courseware:index')
 
-    # @task(10)
-    # def course_home(self):
-    #     """
-    #     Requests the main course home page that contains the course outline.
-    #     """
-    #     logger.info(f'Current user email: { self.locust._email }')
-    #     self.get('course', name='courseware:course_home')
+    @task(10)
+    def course_home(self):
+        """
+        Requests the main course home page that contains the course outline.
+        """
+        logger.info('Current user email: %s', self.locust._email)
+        self.get('course', name='courseware:course_home')
 
     # @task(10)
     # def info(self):
@@ -44,29 +44,29 @@ class CoursewareViewsTasks(EdunextLmsTasks):
     #     logger.info(f'Current user email: { self.locust._email }')
     #     self.get('info', name='courseware:course_info')
 
-    # @task(4)
-    # def progress(self):
-    #     """
-    #     Request the progress tab.
-    #     """
-    #     logger.info(f'Current user email: { self.locust._email }')
-    #     self.get('progress', name='courseware:progress')
+    @task(4)
+    def progress(self):
+        """
+        Request the progress tab.
+        """
+        logger.info('Current user email: %s', self.locust._email)
+        self.get('progress', name='courseware:progress')
 
     # @task(4)
     # def instructor(self):
     #     """
-    #     Request the progress tab.
+    #     Request the instructor tab.
     #     """
     #     logger.info(f'Current user email: { self.locust._email }')
     #     self.get('instructor', name='instructor:home')
 
-    # @task(1)
-    # def about(self):
-    #     """
-    #     Request the LMS' internal about page for this course.
-    #     """
-    #     logger.info(f'Current user email: { self.locust._email }')
-    #     self.get('about', name='courseware:about')
+    @task(4)
+    def about(self):
+        """
+        Request the LMS' internal about page for this course.
+        """
+        logger.info('Current user email: %s', self.locust._email)
+        self.get('about', name='courseware:about')
 
     # @task(8)
     # def stop(self):

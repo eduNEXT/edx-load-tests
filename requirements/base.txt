@@ -2,8 +2,9 @@
 # should import this file.
 
 # load testing software
--e git://github.com/locustio/locust.git@v0.8#egg=locustio
-pyzmq==15.2.0  # needed for distributed mode. remove after we start using locustio>=8.0
+#-e git://github.com/locustio/locust.git@v0.8#egg=locustio
+#pyzmq==15.2.0  # needed for distributed mode. remove after we start using locustio>=8.0
+-e git://github.com/locustio/locust.git@0.13.5#egg=locustio
 
 # common loadtest requirements
 edx-opaque-keys==0.4
